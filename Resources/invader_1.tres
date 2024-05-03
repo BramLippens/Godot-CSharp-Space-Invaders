@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cuxdgjrbbkjro"]
+
+[ext_resource type="Texture2D" uid="uid://e4m6eypwey4b" path="res://space-invaders-assets/images/SpaceInvaders_5.png" id="1_my2b7"]
+[ext_resource type="Script" path="res://Resources/InvaderConfig.cs" id="2_0snlt"]
+
+[resource]
+script = ExtResource("2_0snlt")
+Sprite = ExtResource("1_my2b7")
+Width = 8
+AnimationName = "move_1"
+Score = 40

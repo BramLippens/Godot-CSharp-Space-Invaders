@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr6l71ybohry2"]
+
+[ext_resource type="Texture2D" uid="uid://nfkowl2gln87" path="res://space-invaders-assets/mobs/LargeAlien.png" id="1_8votu"]
+[ext_resource type="Script" path="res://Scenes/start_screen.cs" id="1_p4c78"]
+[ext_resource type="FontFile" uid="uid://cbbxct1brkimo" path="res://space-invaders-assets/common/joystix monospace.otf" id="2_lvva8"]
+
+[node name="StartScreen" type="CanvasLayer"]
+script = ExtResource("1_p4c78")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.0
+offset_top = -259.5
+offset_right = 316.0
+offset_bottom = 259.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.768627, 0.890196, 0, 1)
+theme_override_fonts/font = ExtResource("2_lvva8")
+theme_override_font_sizes/font_size = 90
+text = "SPACE 
+INVADERS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 96
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="InvaderContainer_1" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Invader1Texture" type="TextureRect" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/InvaderContainer_1"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(80, 58)
+layout_mode = 2
+texture = ExtResource("1_8votu")
+expand_mode = 2
+
+[node name="Invader1Label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/InvaderContainer_1"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lvva8")
+theme_override_font_sizes/font_size = 30
+text = "= 10 POINTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InvaderContainer_2" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Invader2Texture" type="TextureRect" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/InvaderContainer_2"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(80, 58)
+layout_mode = 2
+texture = ExtResource("1_8votu")
+expand_mode = 2
+
+[node name="Invader2Label" type="Label" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/InvaderContainer_2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lvva8")
+theme_override_font_sizes/font_size = 30
+text = "= 10 POINTS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InvaderContainer_3" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lvva8")
+theme_override_font_sizes/font_size = 30
+text = "PLAY SPACE INVADERS"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.75
+autostart = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/VBoxContainer/Button" to="." method="LoadGame"]
+[connection signal="timeout" from="Timer" to="." method="ShowNextControl"]

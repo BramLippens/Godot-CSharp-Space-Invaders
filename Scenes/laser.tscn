@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://joirx480463a"]
+
+[ext_resource type="Texture2D" uid="uid://d1iwv4blm4m17" path="res://space-invaders-assets/images/SpaceInvaders_2.png" id="1_sq3oy"]
+[ext_resource type="Script" path="res://Scenes/Laser.cs" id="1_u2jk5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6tc4"]
+size = Vector2(1, 6)
+
+[node name="Laser" type="Area2D"]
+scale = Vector2(2, 2)
+collision_layer = 2
+script = ExtResource("1_u2jk5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0.5, 0)
+texture = ExtResource("1_sq3oy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_m6tc4")

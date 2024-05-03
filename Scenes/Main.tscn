@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://yglkco8i77sg"]
+
+[ext_resource type="PackedScene" uid="uid://c3jwu5l6uuw0m" path="res://Scenes/Player.tscn" id="1_b0vfn"]
+[ext_resource type="PackedScene" uid="uid://dmmaugq4h11qh" path="res://laser_catcher.tscn" id="2_nhldj"]
+
+[node name="Main" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1_b0vfn")]
+position = Vector2(0, 280)
+scale = Vector2(2, 2)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="LaserCatcher" parent="." instance=ExtResource("2_nhldj")]

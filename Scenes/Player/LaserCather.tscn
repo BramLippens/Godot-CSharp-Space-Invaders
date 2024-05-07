@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmmaugq4h11qh"]
 
-[ext_resource type="Script" path="res://Scenes/LaserCatcher.cs" id="1_c803s"]
+[ext_resource type="Script" path="res://Scenes/Player/LaserCatcher.cs" id="1_c803s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwqw3"]
 size = Vector2(1154, 26)

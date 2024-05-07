@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://c3jwu5l6uuw0m"]
+
+[ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_o6qck"]
+[ext_resource type="Texture2D" uid="uid://bahdy10g78leo" path="res://space-invaders-assets/images/Destroyed2.png" id="2_8fpdy"]
+[ext_resource type="Texture2D" uid="uid://bk75v2hiiflpc" path="res://space-invaders-assets/images/Player.png" id="2_nbr1g"]
+[ext_resource type="Script" path="res://Scenes/Player/Shooting.cs" id="3_5xp7r"]
+[ext_resource type="PackedScene" uid="uid://joirx480463a" path="res://Scenes/Player/laser.tscn" id="4_p45bg"]
+[ext_resource type="Texture2D" uid="uid://dq7iv7kicxdnv" path="res://space-invaders-assets/images/Destroyed.png" id="5_6d1mc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ku3cj"]
+size = Vector2(24, 15)
+
+[sub_resource type="Animation" id="Animation_tohx8"]
+resource_name = "Destroy"
+length = 0.5
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("5_6d1mc"), ExtResource("2_8fpdy")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u81y2"]
+_data = {
+"Destroy": SubResource("Animation_tohx8")
+}
+
+[node name="Player" type="Area2D"]
+position = Vector2(3, 0)
+script = ExtResource("1_o6qck")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1, 0)
+scale = Vector2(2.625, 2.625)
+texture = ExtResource("2_nbr1g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_ku3cj")
+
+[node name="ShotOrigin" type="Node2D" parent="."]
+script = ExtResource("3_5xp7r")
+laserScene = ExtResource("4_p45bg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u81y2")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationPlayerAnimationFinished"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dr6l71ybohry2"]
 
 [ext_resource type="Texture2D" uid="uid://nfkowl2gln87" path="res://space-invaders-assets/mobs/LargeAlien.png" id="1_8votu"]
-[ext_resource type="Script" path="res://Scenes/start_screen.cs" id="1_p4c78"]
+[ext_resource type="Script" path="res://Scenes/StartScreen.cs" id="1_p4c78"]
 [ext_resource type="FontFile" uid="uid://cbbxct1brkimo" path="res://space-invaders-assets/common/joystix monospace.otf" id="2_lvva8"]
 
 [node name="StartScreen" type="CanvasLayer"]

@@ -3,7 +3,10 @@ using System;
 
 public partial class Player : Area2D
 {
-	[Export]
+    [Signal]
+    public delegate void DestroyedEventHandler();
+
+    [Export]
 	private float Speed = 400;
 	private Vector2 direction = Vector2.Zero;
 
@@ -12,13 +15,16 @@ public partial class Player : Area2D
 	private float endBound;
 
 	CollisionShape2D _collisionShape2D;
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    public AnimationPlayer AnimationPlayer { get; set; }
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 		_collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+        AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
 		bounding_size_x = _collisionShape2D.Shape.GetRect().Size.X;
 
-		var rect = GetViewport().GetVisibleRect();
+        var rect = GetViewport().GetVisibleRect();
 		var camera = GetViewport().GetCamera2D();
 		var camera_position = camera.Position;
 		startBound = (camera_position.X - rect.Size.X) / 2 + 20f;
@@ -40,4 +46,20 @@ public partial class Player : Area2D
 
 		Position +=  new Vector2((float)deltaMovement, 0);
 	}
+
+	public void OnPlayerDestroyed()
+	{
+		Speed = 0;
+		AnimationPlayer.Play("Destroy");
+    }
+
+	public async void OnAnimationPlayerAnimationFinished(string anim_name)
+	{
+        if (anim_name == "Destroy")
+		{
+            await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
+			EmitSignal(SignalName.Destroyed);
+            QueueFree();
+        }
+    }
 }

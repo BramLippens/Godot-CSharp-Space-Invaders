@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8jof132xfqln"]
+
+[ext_resource type="Texture2D" uid="uid://d1iwv4blm4m17" path="res://space-invaders-assets/images/SpaceInvaders_2.png" id="1_ejcpy"]
+[ext_resource type="Script" path="res://Scenes/Invader/InvaderShot.cs" id="2_g6hwx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jieg1"]
+size = Vector2(4, 19)
+
+[node name="InvaderShot" type="Area2D"]
+collision_layer = 8
+script = ExtResource("2_g6hwx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1.4, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("1_ejcpy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jieg1")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(5.96046e-08, -8.9407e-08)
+scale = Vector2(0.2, 0.9)
+
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2dScreenExited"]

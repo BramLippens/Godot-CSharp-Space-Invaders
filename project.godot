@@ -19,6 +19,12 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Learn-Godot-CSharp"
 
+[importer_defaults]
+
+animation_library={
+"animation/fps": 60.0
+}
+
 [input]
 
 move_left={
@@ -47,6 +53,7 @@ shoot={
 2d_physics/layer_4="invader_projectile"
 2d_physics/layer_5="bunker"
 2d_physics/layer_6="wall"
+2d_physics/layer_7="ufo"
 
 [rendering]
 

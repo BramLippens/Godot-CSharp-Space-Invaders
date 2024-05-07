@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class InvaderSpawner : Node2D
 {
@@ -15,6 +17,8 @@ public partial class InvaderSpawner : Node2D
 	int movement_direction = 1;
 
 	public PackedScene InvaderScene { get; set; }
+
+    public PackedScene InvaderShotScene { get; set; }
     public Timer MovementTimer { get; set; }
     public Timer ShotTimer { get; set; }
 
@@ -24,7 +28,8 @@ public partial class InvaderSpawner : Node2D
         InvaderConfig invader1Res = ResourceLoader.Load("res://Resources/Invader1.tres") as InvaderConfig;
         InvaderConfig invader2Res = ResourceLoader.Load("res://Resources/Invader2.tres") as InvaderConfig;
         InvaderConfig invader3Res = ResourceLoader.Load("res://Resources/Invader3.tres") as InvaderConfig;
-        InvaderScene = GD.Load<PackedScene>("res://Scenes/Invader.tscn");
+        InvaderScene = GD.Load<PackedScene>("res://Scenes/Invader/Invader.tscn");
+        InvaderShotScene = GD.Load<PackedScene>("res://Scenes/Invader/InvaderShot.tscn");
         MovementTimer = GetNode<Timer>("MovementTimer");
         MovementTimer.Connect("timeout", new Callable(this,nameof(MoveInvaders)));
 
@@ -52,7 +57,7 @@ public partial class InvaderSpawner : Node2D
 			var rowWidth = (COLUMNS * invaderConfig.Width * 3) + (COLUMNS - 1) * HORIZONTAL_SPACING;
 			var startX = (Position.X - rowWidth) / 2;
 
-			for (int column = 0; column < COLUMNS; column++)
+			for (int column = 0; column < COLUMNS - 1; column++)
 			{
 				var x = startX + (column * invaderConfig.Width * 3) + (column * HORIZONTAL_SPACING);
 				var y = START_Y_POSITION + (row * INVADER_HEIGHT) + (row * VERTICAL_SPACING);
@@ -101,8 +106,13 @@ public partial class InvaderSpawner : Node2D
 
     public void OnInvaderShot()
     {
-        var invaders = GetChildren();
-        var randomInvader = invaders[GD.RandRange(0, invaders.Count - 1)] as Invader;
-        //randomInvader.Shoot();
+        List<Invader> invaders = GetChildren().Where(x => x is Invader).Cast<Invader>().ToList();
+        // get random invader
+        Invader randomInvader = invaders[GD.RandRange(0, invaders.Count)-1];
+
+        var invaderShot = InvaderShotScene.Instantiate() as InvaderShot;
+        invaderShot.GlobalPosition = randomInvader.GlobalPosition;
+
+        GetTree().Root.AddChild(invaderShot);
     }
 }

@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public partial class Player : Area2D
+public partial class PlayerController : Area2D
 {
     [Signal]
-    public delegate void DestroyedEventHandler();
+    public delegate void DeathEventHandler();
 
     [Export]
 	private float Speed = 400;
@@ -16,11 +16,13 @@ public partial class Player : Area2D
 
 	CollisionShape2D _collisionShape2D;
     public AnimationPlayer AnimationPlayer { get; set; }
+	public Sprite2D Sprite { get; set; }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
 		_collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
         AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		Sprite = GetNode<Sprite2D>("Sprite2D");
 
 		bounding_size_x = _collisionShape2D.Shape.GetRect().Size.X;
 
@@ -53,13 +55,22 @@ public partial class Player : Area2D
 		AnimationPlayer.Play("Destroy");
     }
 
-	public async void OnAnimationPlayerAnimationFinished(string anim_name)
+	public void OnAnimationPlayerAnimationFinished(string anim_name)
 	{
         if (anim_name == "Destroy")
 		{
-            await ToSignal(GetTree().CreateTimer(1f), SceneTreeTimer.SignalName.Timeout);
-			EmitSignal(SignalName.Destroyed);
-            QueueFree();
+            GD.Print("Player Destroyed");
+			AnimationPlayer.Stop();
+			Hide();
+			EmitSignal(SignalName.Death);
         }
     }
+
+	public void RespawnPlayer()
+	{
+		Sprite.Texture = GD.Load<Texture2D>("res://space-invaders-assets/images/Player.png");
+		Show();
+		
+		Speed = 400;
+	}
 }

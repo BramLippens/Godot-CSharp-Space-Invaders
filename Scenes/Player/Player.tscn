@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://c3jwu5l6uuw0m"]
 
-[ext_resource type="Script" path="res://Scenes/Player/Player.cs" id="1_o6qck"]
-[ext_resource type="Texture2D" uid="uid://bahdy10g78leo" path="res://space-invaders-assets/images/Destroyed2.png" id="2_8fpdy"]
-[ext_resource type="Texture2D" uid="uid://bk75v2hiiflpc" path="res://space-invaders-assets/images/Player.png" id="2_nbr1g"]
+[ext_resource type="Script" path="res://Scenes/Player/PlayerController.cs" id="1_yqyu5"]
+[ext_resource type="Texture2D" uid="uid://bk75v2hiiflpc" path="res://space-invaders-assets/images/SpaceInvaders_4.png" id="2_3vpy3"]
+[ext_resource type="Texture2D" uid="uid://bahdy10g78leo" path="res://space-invaders-assets/images/SpaceInvaders_25.png" id="2_8fpdy"]
 [ext_resource type="Script" path="res://Scenes/Player/Shooting.cs" id="3_5xp7r"]
 [ext_resource type="PackedScene" uid="uid://joirx480463a" path="res://Scenes/Player/laser.tscn" id="4_p45bg"]
-[ext_resource type="Texture2D" uid="uid://dq7iv7kicxdnv" path="res://space-invaders-assets/images/Destroyed.png" id="5_6d1mc"]
+[ext_resource type="Texture2D" uid="uid://dq7iv7kicxdnv" path="res://space-invaders-assets/images/SpaceInvaders_18.png" id="5_6d1mc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ku3cj"]
 size = Vector2(24, 15)
@@ -34,13 +34,13 @@ _data = {
 
 [node name="Player" type="Area2D"]
 position = Vector2(3, 0)
-script = ExtResource("1_o6qck")
+script = ExtResource("1_yqyu5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(-1, 0)
 scale = Vector2(2.625, 2.625)
-texture = ExtResource("2_nbr1g")
+texture = ExtResource("2_3vpy3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7.5)

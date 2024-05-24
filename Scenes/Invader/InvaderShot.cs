@@ -19,9 +19,9 @@ public partial class InvaderShot : Area2D
 
 	public void OnAreaEntered(Area2D area)
 	{
-        if (area is Player)
+        if (area is PlayerController)
 		{
-            Player player = (Player)area;
+            PlayerController player = (PlayerController)area;
 			player.OnPlayerDestroyed();
             QueueFree();
         }

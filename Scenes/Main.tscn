@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://yglkco8i77sg"]
+[gd_scene load_steps=9 format=3 uid="uid://yglkco8i77sg"]
 
 [ext_resource type="PackedScene" uid="uid://c3jwu5l6uuw0m" path="res://Scenes/Player/Player.tscn" id="1_b0vfn"]
+[ext_resource type="Script" path="res://Scenes/GameManager.cs" id="1_cy4dj"]
 [ext_resource type="PackedScene" uid="uid://dmmaugq4h11qh" path="res://Scenes/Player/LaserCather.tscn" id="2_nhldj"]
 [ext_resource type="PackedScene" uid="uid://c71qu636pt46c" path="res://Scenes/Invader/InvaderSpawner.tscn" id="3_8281v"]
 [ext_resource type="PackedScene" uid="uid://blqsexixnn6pl" path="res://Scenes/Ufo/UfoSpawner.tscn" id="4_n8vgm"]
-[ext_resource type="Script" path="res://Scenes/LifeManager.cs" id="5_3qpt8"]
+[ext_resource type="PackedScene" uid="uid://cs6tm6gg13561" path="res://RespawnPoint.tscn" id="6_15skp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75kec"]
 size = Vector2(20, 649)
@@ -12,7 +13,9 @@ size = Vector2(20, 649)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lamp"]
 size = Vector2(1166, 87.5)
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" node_paths=PackedStringArray("RespawnPoint")]
+script = ExtResource("1_cy4dj")
+RespawnPoint = NodePath("Respawnpoint")
 
 [node name="Player" parent="." instance=ExtResource("1_b0vfn")]
 position = Vector2(-1, 280)
@@ -54,10 +57,9 @@ shape = SubResource("RectangleShape2D_75kec")
 
 [node name="UfoSpawner" parent="." instance=ExtResource("4_n8vgm")]
 
-[node name="LifeManager" type="Node" parent="."]
-script = ExtResource("5_3qpt8")
+[node name="Respawnpoint" parent="." instance=ExtResource("6_15skp")]
 
-[connection signal="Destroyed" from="Player" to="LifeManager" method="OnPlayerDestroyed"]
+[connection signal="Death" from="Player" to="." method="OnPlayerDeath"]
 [connection signal="area_entered" from="Walls/RightWall" to="InvaderSpawner" method="OnRightWallAreaEntered"]
 [connection signal="area_entered" from="Walls/BottomWall" to="InvaderSpawner" method="OnBottomWallAreaEntered"]
 [connection signal="area_entered" from="Walls/LeftWall" to="InvaderSpawner" method="OnLeftWallAreaEntered"]
